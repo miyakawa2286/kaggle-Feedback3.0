@@ -1,10 +1,12 @@
 .venv/
 .vscode/
 notebooks/*
-!pdf
+!snapshots
+data/external/feedback2.0/*
+data/processed/gector/*
 
 *.zip
 *.csv
-*.txt
 *.pkl
 *.pyc
+*.th
