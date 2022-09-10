@@ -1,7 +1,9 @@
 .venv/
+.vscode/
 notebooks/
 
 *.zip
 *.csv
 *.txt
 *.pkl
+*.pyc
