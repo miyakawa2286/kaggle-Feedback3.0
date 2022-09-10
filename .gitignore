@@ -1,4 +1,7 @@
 .venv/
+notebooks/
 
 *.zip
 *.csv
+*.txt
+*.pkl
