@@ -1,6 +1,7 @@
 .venv/
 .vscode/
-notebooks/
+notebooks/*
+!pdf
 
 *.zip
 *.csv
