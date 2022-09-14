@@ -1,0 +1,13 @@
+.venv
+.vscode/
+saved_models
+
+test.txt
+test_output.txt
+test_output_edits.json
+
+*.zip
+*.csv
+*.pkl
+*.pyc
+*.th
