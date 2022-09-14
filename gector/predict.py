@@ -1,4 +1,5 @@
 import argparse
+import json
 
 from utils.helpers import read_lines, normalize
 from gector.gec_model import GecBERTModel
@@ -7,18 +8,21 @@ from gector.gec_model import GecBERTModel
 def predict_for_file(input_file, output_file, model, batch_size=32, to_normalize=False):
     test_data = read_lines(input_file)
     predictions = []
+    edits = []
     cnt_corrections = 0
     batch = []
     for sent in test_data:
         batch.append(sent.split())
         if len(batch) == batch_size:
-            preds, cnt = model.handle_batch(batch)
+            preds, edits_batch, cnt = model.handle_batch(batch)
             predictions.extend(preds)
+            edits.extend(edits_batch)
             cnt_corrections += cnt
             batch = []
     if batch:
-        preds, cnt = model.handle_batch(batch)
+        preds, edits_batch, cnt = model.handle_batch(batch)
         predictions.extend(preds)
+        edits.extend(edits_batch)
         cnt_corrections += cnt
 
     result_lines = [" ".join(x) for x in predictions]
@@ -27,6 +31,9 @@ def predict_for_file(input_file, output_file, model, batch_size=32, to_normalize
 
     with open(output_file, 'w') as f:
         f.write("\n".join(result_lines) + '\n')
+    with open(output_file.replace(".txt", "_edits.json"), "w") as f:
+        json.dump(edits, f, indent=2)
+
     return cnt_corrections
 
 
